@@ -16,22 +16,51 @@ class TodoViewModel extends ChangeNotifier {
   Future<void> addTask(String title) async {
     if (title.trim().isEmpty) return;
 
-    await _run(() => _firebaseService.addTask(title));
+    await _run(
+      () => _firebaseService.addTask(title),
+    );
+  }
+
+  Future<void> editTask(
+    String taskId,
+    String newTitle,
+  ) async {
+    if (newTitle.trim().isEmpty) return;
+
+    await _run(
+      () => _firebaseService.editTask(
+        taskId,
+        newTitle,
+      ),
+    );
   }
 
   Future<void> toggleTask(TaskModel task) async {
-    await _run(() => _firebaseService.toggleTask(task));
+    await _run(
+      () => _firebaseService.toggleTask(task),
+    );
   }
 
   Future<void> deleteTask(String taskId) async {
-    await _run(() => _firebaseService.deleteTask(taskId));
+    await _run(
+      () => _firebaseService.deleteTask(taskId),
+    );
   }
 
   Future<void> deleteAllTasks() async {
-    await _run(_firebaseService.deleteAllTasks);
+    await _run(
+      _firebaseService.deleteAllTasks,
+    );
   }
 
-  Future<void> _run(Future<void> Function() action) async {
+  void clearError() {
+    errorMessage = null;
+    notifyListeners();
+  }
+
+  Future<void> _run(
+    Future<void> Function() action,
+  ) async {
     try {
       isLoading = true;
       errorMessage = null;

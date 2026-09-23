@@ -12,7 +12,7 @@ class FirebaseService {
         .snapshots()
         .map(
           (snapshot) => snapshot.docs
-              .map(TaskModel.fromFirestore)
+              .map((document) => TaskModel.fromFirestore(document))
               .toList(),
         );
   }
@@ -22,6 +22,15 @@ class FirebaseService {
       'title': title.trim(),
       'isCompleted': false,
       'createdAt': FieldValue.serverTimestamp(),
+    });
+  }
+
+  Future<void> editTask(
+    String taskId,
+    String newTitle,
+  ) async {
+    await _tasks.doc(taskId).update({
+      'title': newTitle.trim(),
     });
   }
 
@@ -37,6 +46,9 @@ class FirebaseService {
 
   Future<void> deleteAllTasks() async {
     final snapshot = await _tasks.get();
+
+    if (snapshot.docs.isEmpty) return;
+
     final batch = FirebaseFirestore.instance.batch();
 
     for (final document in snapshot.docs) {

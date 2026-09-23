@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "309508665098",
+    "project_id": "todo-craft-3d",
+    "storage_bucket": "todo-craft-3d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309508665098:android:47ef2ff4ef6af911d394f3",
+        "android_client_info": {
+          "package_name": "com.example.todo_craft_3d"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0CfXFIBRNgnY0cW3kQHduqa8ZU6iiicg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

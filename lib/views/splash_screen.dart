@@ -38,69 +38,75 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Color(0xffeef2ff),
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _SplashIcon(),
-            SizedBox(height: 24),
-            Text(
-              'TodoCraft 3D',
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                color: Color(0xff29255e),
+    return Scaffold(
+      backgroundColor: const Color(0xffeef2ff),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final iconSize =
+              constraints.maxWidth < 600 ? 130.0 : 160.0;
+
+          return Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: iconSize,
+                    height: iconSize,
+                    padding: const EdgeInsets.all(9),
+                    decoration: BoxDecoration(
+                      color: const Color(0xffeef2ff),
+                      borderRadius: BorderRadius.circular(34),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.white,
+                          offset: Offset(-8, -8),
+                          blurRadius: 16,
+                        ),
+                        BoxShadow(
+                          color: Color(0x405c6692),
+                          offset: Offset(8, 8),
+                          blurRadius: 16,
+                        ),
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(27),
+                      child: Image.asset(
+                        'assets/icons/app_icon.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 28),
+                  const Text(
+                    'TodoCraft 3D',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff29255e),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Plan your day',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black54,
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+                  const CircularProgressIndicator(
+                    color: Color(0xff6c4df6),
+                  ),
+                ],
               ),
             ),
-            SizedBox(height: 8),
-            Text(
-              'Plan your day',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.black54,
-              ),
-            ),
-            SizedBox(height: 30),
-            CircularProgressIndicator(
-              color: Color(0xff6c4df6),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _SplashIcon extends StatelessWidget {
-  const _SplashIcon();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 125,
-      height: 125,
-      decoration: BoxDecoration(
-        color: const Color(0xffeef2ff),
-        borderRadius: BorderRadius.circular(32),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.white,
-            offset: Offset(-8, -8),
-            blurRadius: 16,
-          ),
-          BoxShadow(
-            color: Color(0x405c6692),
-            offset: Offset(8, 8),
-            blurRadius: 16,
-          ),
-        ],
-      ),
-      child: const Icon(
-        Icons.task_alt_rounded,
-        size: 65,
-        color: Color(0xff6c4df6),
+          );
+        },
       ),
     );
   }

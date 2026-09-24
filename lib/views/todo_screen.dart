@@ -223,6 +223,12 @@ class _TodoScreenState extends State<TodoScreen> {
             child: StreamBuilder<List<TaskModel>>(
               stream: viewModel.tasks,
               builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return _message(
+                    Icons.cloud_off_rounded,
+                    'Unable to load tasks',
+                  );
+                }
 
                 if (!snapshot.hasData) {
                   return const Center(
@@ -325,6 +331,25 @@ class _TodoScreenState extends State<TodoScreen> {
                                   ),
                                 ),
                               const SizedBox(height: 20),
+                              const Center(
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(
+                                      Icons.cloud_done_rounded,
+                                      size: 20,
+                                      color: Color(0xff6c4df6),
+                                    ),
+                                    SizedBox(width: 8),
+                                    Text(
+                                      'Synced with Firebase',
+                                      style: TextStyle(
+                                        color: Colors.black54,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -472,5 +497,23 @@ class _TodoScreenState extends State<TodoScreen> {
     );
   }
 
- 
+  Widget _message(IconData icon, String message) {
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            icon,
+            size: 65,
+            color: const Color(0xffef5364),
+          ),
+          const SizedBox(height: 15),
+          Text(
+            message,
+            style: const TextStyle(fontSize: 18),
+          ),
+        ],
+      ),
+    );
+  }
 }
